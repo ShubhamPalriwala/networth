@@ -7,7 +7,7 @@ device = "wlan0"
 b = BPF(src_file="core.c")
 
 # Load the specified function and specify the program type
-fn = b.load_func("print_on_every_packet", BPF.XDP)
+fn = b.load_func("find_whether_tcp_or_udp", BPF.XDP)
 
 # We now finally attach the function to the device and no flags (0)
 b.attach_xdp(device, fn, 0)
