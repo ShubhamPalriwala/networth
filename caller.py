@@ -12,12 +12,18 @@ fn = b.load_func("find_whether_tcp_or_udp", BPF.XDP)
 # We now finally attach the function to the device and no flags (0)
 b.attach_xdp(device, fn, 0)
 
-try:
-    # Print the trace values we receive
-    b.trace_print()
+while 1:
+    try:
+        # Parse the trace values we receive
+        (wifi_driver, idk_what_this_is, cpu, flags, timestamp, msg) = b.trace_fields()
 
-except KeyboardInterrupt:
-    print("ending")
+        # Decode the string bytes using UTF-8
+        d_msg = msg.decode()
+        print(d_msg + " at", timestamp)
+
+    except KeyboardInterrupt:
+        print("\nEnding gracefully")
+        exit()
 
 # Gracefully remove the loaded xdp program from the device and again with no flags
 b.remove_xdp(device, 0)
