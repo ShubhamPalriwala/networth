@@ -1,11 +1,10 @@
-#define KBUILD_MODNAME "find_whether_tcp_or_udp"
+#define KBUILD_MODNAME "count_network_bytes_per_ip"
 #include <linux/bpf.h>
-#include <linux/if_ether.h>
 #include <linux/ip.h>
-#include <linux/in.h>
-#include <linux/udp.h>
 
-int find_whether_tcp_or_udp(struct xdp_md *ctx)
+BPF_HISTOGRAM(counter, unsigned int);
+
+int count_network_bytes_per_ip(struct xdp_md *ctx)
 {
     // We mark the start and end of our ethernet frame
     void *ethernet_start = (void *)(long)ctx->data;
@@ -18,19 +17,12 @@ int find_whether_tcp_or_udp(struct xdp_md *ctx)
     {
         struct iphdr *ip_packet = ethernet_start + sizeof(*ethernet_frame);
 
-        // Check if the entire IP is inside this ethernet frame
+        // Check if the IP packet is within the bounds of ethernet frame
         if ((void *)ip_packet + sizeof(*ip_packet) <= ethernet_end)
         {
-            // If TCP packet
-            if (ip_packet->protocol == IPPROTO_TCP)
-            {
-                bpf_trace_printk("Found TCP packet");
-            }
-            // If TCP packet
-            else if (ip_packet->protocol == IPPROTO_UDP)
-            {
-                bpf_trace_printk("Found UDP packet");
-            }
+
+            unsigned int value = ip_packet->saddr;
+            counter.increment(value, ethernet_end - ethernet_start);
         }
     }
 
