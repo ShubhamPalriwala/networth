@@ -22,7 +22,9 @@ int count_network_bytes_per_ip(struct xdp_md *ctx)
         {
 
             unsigned int value = ip_packet->saddr;
-            counter.increment(value, ethernet_end - ethernet_start);
+            unsigned int ethernet_size_in_bytes = (ethernet_end - ethernet_start);
+
+            counter.increment(value, ethernet_size_in_bytes);
         }
     }
 

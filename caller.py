@@ -1,4 +1,5 @@
 from bcc import BPF
+import socket
 
 # Specify the Interface (if in doubt, run `ip addr` and change the interface accordingly)
 device = "wlan0"
@@ -23,23 +24,25 @@ def format_ip_address(addr):
     return formatted_ip
 
 
+print("Activating the monitoring, press Ctrl+C to stop and view results.")
+
 while 1:
     try:
-        print("Running")
         # Parse the trace values we receive
         (wifi_driver, idk_what_this_is, cpu, flags, timestamp, msg) = b.trace_fields()
 
-        # Decode the string bytes using UTF-8
-        d_msg = msg.decode()
-        print(d_msg + " at", timestamp)
-
     except KeyboardInterrupt:
-        print("\nEnding gracefully")
+        print("\n%-24s %-6s" % ("IP Address", "bytes transmitted"))
 
         dist = b.get_table("counter")
         for k, v in dist.items():
-            test = format_ip_address(k.value)
-            print("IP Address: ", test.decode(), "Bytes in Data: ", v.value)
+            ip_in_octet = format_ip_address(k.value).decode()
+            try:
+                host = socket.gethostbyaddr(ip_in_octet)[0]
+            except socket.error:
+                host = ip_in_octet
+
+            print("%-32s %-6d" % (host, v.value))
         exit()
 
 # Gracefully remove the loaded xdp program from the device and again with no flags
