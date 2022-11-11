@@ -24,6 +24,14 @@ def format_ip_address(addr):
     return formatted_ip
 
 
+# Dictionary to store the corresponding divisor for the data type needed in the form of log
+output_power_from_bytes = {"b": 0, "kb": 1, "mb": 2, "gb": 3}
+output_data_type = "kb"
+
+
+def datatype_conversion(value_in_bytes):
+    return value_in_bytes / (1024 ** output_power_from_bytes[output_data_type])
+
 print("Activating the monitoring, press Ctrl+C to stop and view results.")
 
 while 1:
@@ -32,8 +40,9 @@ while 1:
         (wifi_driver, idk_what_this_is, cpu, flags, timestamp, msg) = b.trace_fields()
 
     except KeyboardInterrupt:
-        print("\n%-24s %-6s" % ("IP Address", "bytes transmitted"))
+        print("\n%-24s %-6s" % ("IP Address", output_data_type))
 
+        # Get the eBPF histogram and iterate through the elements
         dist = b.get_table("counter")
         for k, v in dist.items():
             ip_in_octet = format_ip_address(k.value).decode()
@@ -42,7 +51,9 @@ while 1:
             except socket.error:
                 host = ip_in_octet
 
-            print("%-32s %-6d" % (host, v.value))
+            data_transmitted = datatype_conversion(v.value)
+            print("%-32s %-6d" % (host, data_transmitted))
+
         exit()
 
 # Gracefully remove the loaded xdp program from the device and again with no flags
