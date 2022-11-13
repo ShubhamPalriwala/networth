@@ -1,4 +1,12 @@
 from bcc import BPF
+from prometheus_client import (
+    start_http_server,
+    Gauge,
+    REGISTRY,
+    PLATFORM_COLLECTOR,
+    PROCESS_COLLECTOR,
+    GC_COLLECTOR,
+)
 
 # Specify the Interface (if in doubt, run `ip addr` and change the interface accordingly)
 device = "wlan0"
@@ -32,25 +40,39 @@ def datatype_conversion(value_in_bytes):
     return value_in_bytes / (1024 ** output_power_from_bytes[output_data_type])
 
 
+def disable_default_prom_metrics():
+    REGISTRY.unregister(PROCESS_COLLECTOR)
+    REGISTRY.unregister(PLATFORM_COLLECTOR)
+    REGISTRY.unregister(GC_COLLECTOR)
+
+
 # Parse the event in the eBPF buffer
 def parse_ip_event(_, data, size):
     ip_and_bytes = b["events"].event(data)
     ip_in_octet = format_ip_address(ip_and_bytes.ip).decode()
+
     data_transmitted = datatype_conversion(ip_and_bytes.bytes)
     print("%-32s %-6d" % (ip_in_octet, data_transmitted))
+
+    g.labels(ip_in_octet).set(data_transmitted)
 
 
 print("\n%-24s %-6s" % ("IP Address", output_data_type))
 
 # Open the ring buffer and provide a callback function for any event
 b["events"].open_ring_buffer(parse_ip_event)
-while 1:
-    try:
+try:
+    start_http_server(8000)
+    disable_default_prom_metrics()
+
+    g = Gauge("bytes_per_ip", "Bytes transmitted for this IP", ["ip_address"])
+
+    while 1:
         # Start polling the ring buffer for event
         b.ring_buffer_poll()
 
-    except KeyboardInterrupt:
-        exit()
+except KeyboardInterrupt:
+    exit()
 
 # Gracefully remove the loaded xdp program from the device and again with no flags
 b.remove_xdp(device, 0)
