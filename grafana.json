@@ -36,6 +36,110 @@
 		"fieldConfig": {
 		  "defaults": {
 			"color": {
+			  "mode": "thresholds"
+			},
+			"custom": {
+			  "hideFrom": {
+				"legend": false,
+				"tooltip": false,
+				"viz": false
+			  }
+			},
+			"mappings": [],
+			"thresholds": {
+			  "mode": "absolute",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "red",
+				  "value": 80
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 17,
+		  "w": 13,
+		  "x": 0,
+		  "y": 0
+		},
+		"id": 4,
+		"options": {
+		  "basemap": {
+			"config": {},
+			"name": "Layer 0",
+			"type": "default"
+		  },
+		  "controls": {
+			"mouseWheelZoom": true,
+			"showAttribution": true,
+			"showDebug": false,
+			"showMeasure": false,
+			"showScale": false,
+			"showZoom": true
+		  },
+		  "layers": [
+			{
+			  "config": {
+				"blur": 15,
+				"radius": 5,
+				"weight": {
+				  "fixed": 1,
+				  "max": 1,
+				  "min": 0
+				}
+			  },
+			  "name": "Layer 1",
+			  "tooltip": true,
+			  "type": "heatmap"
+			}
+		  ],
+		  "tooltip": {
+			"mode": "details"
+		  },
+		  "view": {
+			"allLayers": true,
+			"id": "coords",
+			"lastOnly": false,
+			"lat": 51.395122,
+			"layer": "Layer 1",
+			"lon": 2.463965,
+			"shared": false,
+			"zoom": 1.6
+		  }
+		},
+		"pluginVersion": "9.2.4",
+		"targets": [
+		  {
+			"datasource": {
+			  "type": "prometheus",
+			  "uid": "Yp90jeD4k"
+			},
+			"editorMode": "code",
+			"expr": "geoip{}",
+			"format": "table",
+			"legendFormat": "__auto",
+			"range": true,
+			"refId": "A"
+		  }
+		],
+		"title": "Network World Graph",
+		"transparent": true,
+		"type": "geomap"
+	  },
+	  {
+		"datasource": {
+		  "type": "prometheus",
+		  "uid": "Yp90jeD4k"
+		},
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
 			  "mode": "palette-classic"
 			},
 			"custom": {
@@ -90,10 +194,10 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 10,
-		  "w": 11,
-		  "x": 0,
-		  "y": 0
+		  "h": 8,
+		  "w": 7,
+		  "x": 12,
+		  "y": 17
 		},
 		"id": 2,
 		"options": {
@@ -128,6 +232,7 @@
 		"type": "timeseries"
 	  }
 	],
+	"refresh": false,
 	"schemaVersion": 37,
 	"style": "dark",
 	"tags": [],
@@ -135,7 +240,7 @@
 	  "list": []
 	},
 	"time": {
-	  "from": "now-5m",
+	  "from": "now-15m",
 	  "to": "now"
 	},
 	"timepicker": {},
