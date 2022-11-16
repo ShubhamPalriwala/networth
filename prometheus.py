@@ -7,15 +7,15 @@ def disable_default_prom_metrics():
     prometheus_client.REGISTRY.unregister(prometheus_client.GC_COLLECTOR)
 
 
-def send_data_for_total_bytes(prom_metric, ip, data_transmitted):
+def send_data_for_total_bytes(prom_metric: prometheus_client.Gauge, ip: str, data_transmitted: int):
     prom_metric.labels(ip).set(data_transmitted)
 
 
-def send_data_to_geomap(prom_metric, city, lat, lon):
+def send_data_to_geomap(prom_metric: prometheus_client.Gauge, city: str, lat: str, lon: str):
     prom_metric.labels(city, lat, lon)
 
 
-def initialise(port):
+def initialise(port: int):
     disable_default_prom_metrics()
     prometheus_client.start_http_server(port)
 
