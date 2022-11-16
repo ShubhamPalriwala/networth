@@ -26,9 +26,8 @@ unable_to_find = set()
 
 output_data_type = "b"
 
+
 # This is the callback function that runs on every event at the NIC level
-
-
 def runs_on_every_ethernet_frame(_, data, size):
     ip_and_bytes = b["events"].event(data)
     ip_in_octet = network.format_ip_address(ip_and_bytes.ip).decode()

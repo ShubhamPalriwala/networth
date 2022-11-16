@@ -1,6 +1,7 @@
 import prometheus_client
 
 
+# Disable default Prometheus metrics that aren't needed
 def disable_default_prom_metrics():
     prometheus_client.REGISTRY.unregister(prometheus_client.PROCESS_COLLECTOR)
     prometheus_client.REGISTRY.unregister(prometheus_client.PLATFORM_COLLECTOR)
@@ -15,6 +16,7 @@ def send_data_to_geomap(prom_metric: prometheus_client.Gauge, city: str, lat: st
     prom_metric.labels(city, lat, lon)
 
 
+# Start a Prometheus server and a couple of data models
 def initialise(port: int):
     disable_default_prom_metrics()
     prometheus_client.start_http_server(port)
