@@ -13,12 +13,16 @@ def send_data_for_total_bytes(prom_metric: prometheus_client.Gauge, ip: str, dat
 
 
 def send_data_to_geomap(prom_metric: prometheus_client.Gauge, city: str, lat: str, lon: str):
-    prom_metric.labels(city, lat, lon)
+    prom_metric.labels(city, lat, lon).inc()
+
+
+def send_data_for_protocols(prom_metric: prometheus_client.Gauge, protocol: str):
+    prom_metric.labels(protocol).inc()
 
 
 # Start a Prometheus server and a couple of data models
 def initialise(port: int):
-    disable_default_prom_metrics()
+    # disable_default_prom_metrics()
     prometheus_client.start_http_server(port)
 
     data_per_ip = prometheus_client.Gauge(
@@ -27,4 +31,6 @@ def initialise(port: int):
         "geoip", "Ethernet frames Location-wise", [
             "city", "latitude", "longitude"]
     )
-    return data_per_ip, worldmap
+    protocols_used = prometheus_client.Counter(
+        "protocol_data", "Counter for protocols", ["protocol"])
+    return data_per_ip, worldmap, protocols_used

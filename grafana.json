@@ -47,15 +47,11 @@
 			},
 			"mappings": [],
 			"thresholds": {
-			  "mode": "absolute",
+			  "mode": "percentage",
 			  "steps": [
 				{
 				  "color": "green",
 				  "value": null
-				},
-				{
-				  "color": "red",
-				  "value": 80
 				}
 			  ]
 			}
@@ -63,8 +59,8 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 17,
-		  "w": 13,
+		  "h": 18,
+		  "w": 16,
 		  "x": 0,
 		  "y": 0
 		},
@@ -86,15 +82,19 @@
 		  "layers": [
 			{
 			  "config": {
-				"blur": 15,
-				"radius": 5,
+				"blur": 18,
+				"radius": 3,
 				"weight": {
 				  "fixed": 1,
 				  "max": 1,
 				  "min": 0
 				}
 			  },
-			  "name": "Layer 1",
+			  "location": {
+				"mode": "auto"
+			  },
+			  "name": "Layer 2",
+			  "opacity": 1,
 			  "tooltip": true,
 			  "type": "heatmap"
 			}
@@ -121,9 +121,12 @@
 			  "uid": "Yp90jeD4k"
 			},
 			"editorMode": "code",
+			"exemplar": false,
 			"expr": "geoip{}",
 			"format": "table",
-			"legendFormat": "__auto",
+			"instant": false,
+			"interval": "",
+			"legendFormat": "{{city}}",
 			"range": true,
 			"refId": "A"
 		  }
@@ -194,10 +197,10 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 8,
-		  "w": 7,
-		  "x": 12,
-		  "y": 17
+		  "h": 10,
+		  "w": 8,
+		  "x": 16,
+		  "y": 0
 		},
 		"id": 2,
 		"options": {
@@ -229,7 +232,145 @@
 		  }
 		],
 		"title": "Total Bytes Transmitted",
+		"transparent": true,
 		"type": "timeseries"
+	  },
+	  {
+		"datasource": {
+		  "type": "prometheus",
+		  "uid": "Yp90jeD4k"
+		},
+		"description": "",
+		"fieldConfig": {
+		  "defaults": {
+			"color": {
+			  "mode": "palette-classic"
+			},
+			"custom": {
+			  "hideFrom": {
+				"legend": false,
+				"tooltip": false,
+				"viz": false
+			  }
+			},
+			"mappings": []
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 8,
+		  "w": 7,
+		  "x": 16,
+		  "y": 10
+		},
+		"id": 8,
+		"options": {
+		  "displayLabels": [
+			"percent"
+		  ],
+		  "legend": {
+			"displayMode": "table",
+			"placement": "right",
+			"showLegend": true,
+			"values": [
+			  "percent"
+			]
+		  },
+		  "pieType": "donut",
+		  "reduceOptions": {
+			"calcs": [
+			  "lastNotNull"
+			],
+			"fields": "",
+			"values": false
+		  },
+		  "tooltip": {
+			"mode": "single",
+			"sort": "none"
+		  }
+		},
+		"targets": [
+		  {
+			"datasource": {
+			  "type": "prometheus",
+			  "uid": "Yp90jeD4k"
+			},
+			"editorMode": "builder",
+			"expr": "protocol_data_total",
+			"format": "heatmap",
+			"legendFormat": "{{protocol}}",
+			"range": true,
+			"refId": "A"
+		  }
+		],
+		"title": "IP Protocols",
+		"transparent": true,
+		"type": "piechart"
+	  },
+	  {
+		"datasource": {
+		  "type": "prometheus",
+		  "uid": "Yp90jeD4k"
+		},
+		"fieldConfig": {
+		  "defaults": {
+			"mappings": [],
+			"thresholds": {
+			  "mode": "percentage",
+			  "steps": [
+				{
+				  "color": "green",
+				  "value": null
+				},
+				{
+				  "color": "orange",
+				  "value": 70
+				},
+				{
+				  "color": "red",
+				  "value": 85
+				}
+			  ]
+			}
+		  },
+		  "overrides": []
+		},
+		"gridPos": {
+		  "h": 5,
+		  "w": 4,
+		  "x": 0,
+		  "y": 18
+		},
+		"id": 6,
+		"options": {
+		  "orientation": "auto",
+		  "reduceOptions": {
+			"calcs": [
+			  "lastNotNull"
+			],
+			"fields": "",
+			"values": false
+		  },
+		  "showThresholdLabels": false,
+		  "showThresholdMarkers": true
+		},
+		"pluginVersion": "9.2.4",
+		"targets": [
+		  {
+			"datasource": {
+			  "type": "prometheus",
+			  "uid": "Yp90jeD4k"
+			},
+			"editorMode": "builder",
+			"expr": "rate(process_cpu_seconds_total[15s]) * 100",
+			"legendFormat": "__auto",
+			"range": true,
+			"refId": "A"
+		  }
+		],
+		"title": "CPU % used by NetWorth",
+		"transparent": true,
+		"type": "gauge"
 	  }
 	],
 	"refresh": false,
@@ -240,13 +381,13 @@
 	  "list": []
 	},
 	"time": {
-	  "from": "now-15m",
+	  "from": "now-1m",
 	  "to": "now"
 	},
 	"timepicker": {},
 	"timezone": "",
 	"title": "Networth-Total",
 	"uid": "PyIm36vVk",
-	"version": 1,
+	"version": 6,
 	"weekStart": ""
   }
