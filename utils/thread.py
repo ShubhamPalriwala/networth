@@ -1,6 +1,6 @@
 import threading
-import prometheus
-import network
+import utils.prometheus as prometheus
+import utils.network as network
 
 
 # Define an isolated thread function to run every 3 seconds that parallely queries the IP addresses for their location and pushed to Prometheus

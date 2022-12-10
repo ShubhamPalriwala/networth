@@ -2,7 +2,7 @@
 import os
 import requests
 from dotenv import load_dotenv
-import prometheus
+import utils.prometheus as prometheus
 
 # Load the environment variables to fetch the API Key
 load_dotenv()

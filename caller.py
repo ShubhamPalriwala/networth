@@ -1,9 +1,9 @@
 from bcc import BPF
 
-import network
-import prometheus
-import thread
-import protocol_translation
+import utils.network as network
+import utils.prometheus as prometheus
+import utils.thread as thread
+import utils.protocol_translation as protocol_translation
 
 # Specify the Interface (if in doubt, run `ip addr` and change the interface accordingly)
 device = "wlan0"
