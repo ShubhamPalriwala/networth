@@ -33,7 +33,7 @@ cd Networth/
 pip install -r requirements.txt
 ```
 
-1. Install dev tools and Linux Kernel Headers through your package manager: (example apt):
+1. Install dev tools and Linux Kernel Headers through your package manager (example apt):
 
 ```
 sudo apt install bcc-tools linux-headers-$(uname -r)
