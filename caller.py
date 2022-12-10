@@ -47,7 +47,8 @@ def runs_on_every_ethernet_frame(_, data, size):
     prometheus.send_data_for_protocols(protocols_used, protocol)
 
 
-print("Monitoring and sending data over to Prometheus, check over at http://localhost:8000")
+print("Sending data over to Prometheus, check the logs at http://localhost:8000")
+print("Head over to http://localhost:3000 and import the grafana JSON to view the data on the dashboard")
 
 # Open the ring buffer and provide a callback function for any event
 b["events"].open_ring_buffer(runs_on_every_ethernet_frame)
