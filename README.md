@@ -66,3 +66,12 @@ sudo python3 caller.py
 
 #### Note
 If you plan to use this for more than just fun, I would recommend you get an API key from https://ipinfo.io/ for unobstructed monitoring and add it to the `sample.env` and then rename it to `.env`
+
+
+## License
+
+Copyright 2022 Shubham Palriwala
+
+Licensed under [MIT License](./LICENSE)
+
+<p align="center">Made to learn and explore :honeybee: eBPF</p>
