@@ -1,4 +1,53 @@
 {
+	"__inputs": [
+	  {
+		"name": "DS_PROMETHEUS",
+		"label": "Prometheus",
+		"description": "",
+		"type": "datasource",
+		"pluginId": "prometheus",
+		"pluginName": "Prometheus"
+	  }
+	],
+	"__elements": {},
+	"__requires": [
+	  {
+		"type": "panel",
+		"id": "gauge",
+		"name": "Gauge",
+		"version": ""
+	  },
+	  {
+		"type": "panel",
+		"id": "geomap",
+		"name": "Geomap",
+		"version": ""
+	  },
+	  {
+		"type": "grafana",
+		"id": "grafana",
+		"name": "Grafana",
+		"version": "9.2.4"
+	  },
+	  {
+		"type": "panel",
+		"id": "piechart",
+		"name": "Pie chart",
+		"version": ""
+	  },
+	  {
+		"type": "datasource",
+		"id": "prometheus",
+		"name": "Prometheus",
+		"version": "1.0.0"
+	  },
+	  {
+		"type": "panel",
+		"id": "timeseries",
+		"name": "Time series",
+		"version": ""
+	  }
+	],
 	"annotations": {
 	  "list": [
 		{
@@ -21,17 +70,18 @@
 		}
 	  ]
 	},
+	"description": "Leveraging eBPF and XDP for monitoring",
 	"editable": true,
 	"fiscalYearStartMonth": 0,
 	"graphTooltip": 0,
-	"id": 1,
+	"id": null,
 	"links": [],
 	"liveNow": false,
 	"panels": [
 	  {
 		"datasource": {
 		  "type": "prometheus",
-		  "uid": "Yp90jeD4k"
+		  "uid": "${DS_PROMETHEUS}"
 		},
 		"fieldConfig": {
 		  "defaults": {
@@ -59,7 +109,7 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 18,
+		  "h": 24,
 		  "w": 16,
 		  "x": 0,
 		  "y": 0
@@ -90,11 +140,8 @@
 				  "min": 0
 				}
 			  },
-			  "location": {
-				"mode": "auto"
-			  },
 			  "name": "Layer 2",
-			  "opacity": 1,
+			  "opacity": 0.5,
 			  "tooltip": true,
 			  "type": "heatmap"
 			}
@@ -118,7 +165,7 @@
 		  {
 			"datasource": {
 			  "type": "prometheus",
-			  "uid": "Yp90jeD4k"
+			  "uid": "${DS_PROMETHEUS}"
 			},
 			"editorMode": "code",
 			"exemplar": false,
@@ -131,14 +178,14 @@
 			"refId": "A"
 		  }
 		],
-		"title": "Network World Graph",
+		"title": "Networth World Map",
 		"transparent": true,
 		"type": "geomap"
 	  },
 	  {
 		"datasource": {
 		  "type": "prometheus",
-		  "uid": "Yp90jeD4k"
+		  "uid": "${DS_PROMETHEUS}"
 		},
 		"fieldConfig": {
 		  "defaults": {
@@ -197,7 +244,7 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 10,
+		  "h": 11,
 		  "w": 8,
 		  "x": 16,
 		  "y": 0
@@ -222,7 +269,7 @@
 		  {
 			"datasource": {
 			  "type": "prometheus",
-			  "uid": "Yp90jeD4k"
+			  "uid": "${DS_PROMETHEUS}"
 			},
 			"editorMode": "builder",
 			"expr": "sum(bytes_per_ip)",
@@ -231,14 +278,14 @@
 			"refId": "A"
 		  }
 		],
-		"title": "Total Bytes Transmitted",
+		"title": "Total Bytes Recieved",
 		"transparent": true,
 		"type": "timeseries"
 	  },
 	  {
 		"datasource": {
 		  "type": "prometheus",
-		  "uid": "Yp90jeD4k"
+		  "uid": "${DS_PROMETHEUS}"
 		},
 		"description": "",
 		"fieldConfig": {
@@ -258,10 +305,10 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 8,
-		  "w": 7,
+		  "h": 9,
+		  "w": 8,
 		  "x": 16,
-		  "y": 10
+		  "y": 11
 		},
 		"id": 8,
 		"options": {
@@ -293,7 +340,7 @@
 		  {
 			"datasource": {
 			  "type": "prometheus",
-			  "uid": "Yp90jeD4k"
+			  "uid": "${DS_PROMETHEUS}"
 			},
 			"editorMode": "builder",
 			"expr": "protocol_data_total",
@@ -310,7 +357,7 @@
 	  {
 		"datasource": {
 		  "type": "prometheus",
-		  "uid": "Yp90jeD4k"
+		  "uid": "${DS_PROMETHEUS}"
 		},
 		"fieldConfig": {
 		  "defaults": {
@@ -336,10 +383,10 @@
 		  "overrides": []
 		},
 		"gridPos": {
-		  "h": 5,
+		  "h": 4,
 		  "w": 4,
-		  "x": 0,
-		  "y": 18
+		  "x": 16,
+		  "y": 20
 		},
 		"id": 6,
 		"options": {
@@ -359,7 +406,7 @@
 		  {
 			"datasource": {
 			  "type": "prometheus",
-			  "uid": "Yp90jeD4k"
+			  "uid": "${DS_PROMETHEUS}"
 			},
 			"editorMode": "builder",
 			"expr": "rate(process_cpu_seconds_total[15s]) * 100",
@@ -381,13 +428,13 @@
 	  "list": []
 	},
 	"time": {
-	  "from": "now-1m",
+	  "from": "now-30m",
 	  "to": "now"
 	},
 	"timepicker": {},
 	"timezone": "",
-	"title": "Networth-Total",
+	"title": "Networth",
 	"uid": "PyIm36vVk",
-	"version": 6,
+	"version": 12,
 	"weekStart": ""
   }
