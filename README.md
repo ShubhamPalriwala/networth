@@ -15,7 +15,6 @@ Monitor your host's ingress data packets leveraging the power of eBPF and XDP. V
 ### Requirements
 - Python3
 - pip
-- Docker
 - Grafana
 - Prometheus
 
@@ -33,33 +32,28 @@ cd Networth/
 pip install -r requirements.txt
 ```
 
-1. Install dev tools and Linux Kernel Headers through your package manager (example apt):
+3. Install dev tools and Linux Kernel Headers through your package manager (example apt):
 
 ```
 sudo apt install bcc-tools linux-headers-$(uname -r)
 ```
 
-5. Start the docker service:
-```
-sudo systemctl start docker
-```
-
-6. Start the Grafana service: 
+4. Start the Grafana service: 
 ```
 sudo systemctl start grafana.service
 ```
 
-7. Start the prometheus server:
+5. Start the prometheus server:
 ```
 prometheus --config.file=prometheus.yml
 ```
 
-8. Finally start the eBPF program:
+6. Finally start the eBPF program:
 ```
 sudo python3 caller.py
 ```
 
-9. Now head over to Grafana and import the Dashboard by uploading the `grafana.json` file.
+7. Now head over to Grafana and import the Dashboard by uploading the `grafana.json` file.
 
 *Congrats! You should now be able to see your NetWorth!*
 
