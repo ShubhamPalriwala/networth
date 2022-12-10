@@ -12,6 +12,13 @@ Monitor your host's ingress data packets leveraging the power of eBPF and XDP. V
 - Set an alert on the % of the CPU used by NetWorth
 
 
+### Requirements
+- Python3
+- pip
+- Docker
+- Grafana
+- Prometheus
+
 ### Steps to run locally:
 1. Clone and get into the repository
 
@@ -29,7 +36,7 @@ pip install -r requirements.txt
 1. Install dev tools and Linux Kernel Headers through your package manager: (example apt):
 
 ```
-sudo apt install bcc-tools libbcc-examples linux-headers-$(uname -r)
+sudo apt install bcc-tools linux-headers-$(uname -r)
 ```
 
 5. Start the docker service:
@@ -62,6 +69,6 @@ sudo python3 caller.py
 2. Grafana Dashboard at localhost:3000
 
 
-```
-Note: If you plan to use this for more than just fun, I would recommend you get an API key from https://ipinfo.io/ for unobstructed monitoring.
-```
+
+#### Note
+If you plan to use this for more than just fun, I would recommend you get an API key from https://ipinfo.io/ for unobstructed monitoring and add it to the `sample.env` and then rename it to `.env`
