@@ -35,7 +35,7 @@ pip install -r requirements.txt
 3. Install dev tools and Linux Kernel Headers through your package manager (example apt):
 
 ```
-sudo apt install bcc-tools linux-headers-$(uname -r)
+sudo pacman -S bcc-tools linux-headers
 ```
 
 4. Start the Grafana service: 

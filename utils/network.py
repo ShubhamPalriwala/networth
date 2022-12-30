@@ -1,5 +1,6 @@
 
 import os
+import sys
 import requests
 from dotenv import load_dotenv
 import utils.prometheus as prometheus
@@ -8,6 +9,9 @@ import utils.prometheus as prometheus
 load_dotenv()
 
 ip_info_api_key = os.getenv("IP_INFO_IO_API_KEY")
+
+if ip_info_api_key is None:
+    sys.exit("Generate an API Key first from https://ipinfo.io/! and feed it in the sample.env and rename it to .env")
 
 
 # Format IP address from number to octet format (a.b.c.d)
