@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  networth:
+  ebpf-app:
     privileged: true
     network_mode: "host"
     build: .

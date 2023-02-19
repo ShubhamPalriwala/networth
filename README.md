@@ -72,8 +72,7 @@ sudo python3 caller.py
 1. Python client sending data at http://localhost:8000/metrics 
 2. Prometheus Scraping logs at http://localhost:9090
 3. Grafana Dashboard at http://localhost:3000/d/PyIm36vVk/networth?orgId=1/
-
-
+4. Docker Image for NetWorth App available at: https://hub.docker.com/repository/docker/laalshaitaan/networth
 
 #### Note
 If you plan to use this for more than just fun, I would recommend you get an API key from https://ipinfo.io/ for unobstructed monitoring and add it to the `sample.env` and then rename it to `.env`
