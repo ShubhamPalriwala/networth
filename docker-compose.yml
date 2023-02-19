@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  networth:
+    privileged: true
+    network_mode: "host"
+    build: .
+    volumes:
+      - "/lib/modules:/lib/modules:ro"
+      - "/usr/src:/usr/src:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+
+  grafana:
+    image: grafana/grafana:latest
+    network_mode: "host"
+    volumes:
+      - ./grafana/dashboard.yaml:/etc/grafana/provisioning/dashboards/main.yaml
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - ./grafana/datasources:/etc/grafana/provisioning/datasources
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ORG_ROLE=viewer
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+
+  prometheus:
+    image: prom/prometheus:latest
+    network_mode: "host"
+    volumes:
+      - "./prometheus.yml:/etc/prometheus/prometheus.yml"
+      - "prometheus_data:/prometheus"
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+
+volumes:
+  prometheus_data: {}

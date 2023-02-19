@@ -11,14 +11,23 @@ Monitor your host's ingress data packets leveraging the power of eBPF and XDP. V
 - Get the number and types of Layer 4 protocols your host is dealing wtih
 - Set an alert on the % of the CPU used by NetWorth
 
+### Run Locally
+```sh
+git clone https://github.com/ShubhamPalriwala/networth.git
+cd networth/
+docker compose up
+```
 
-### Requirements
+<details>
+<summary>Do you want to build it yourself without docker? Click me!</summary>
+<br>
+
+Requirements
 - Python3
 - pip
 - Grafana
 - Prometheus
 
-### Steps to run locally:
 1. Clone and get into the repository
 
 ```
@@ -57,10 +66,12 @@ sudo python3 caller.py
 
 *Congrats! You should now be able to see your NetWorth!*
 
+</details>
 
 ## Artifacts available:
-1. Prometheus Logs at localhost:8000
-2. Grafana Dashboard at localhost:3000
+1. Python client sending data at http://localhost:8000/metrics 
+2. Prometheus Scraping logs at http://localhost:9090
+3. Grafana Dashboard at http://localhost:3000/d/PyIm36vVk/networth?orgId=1/
 
 
 
