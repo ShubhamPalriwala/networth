@@ -81,7 +81,7 @@
 	  {
 		"datasource": {
 		  "type": "prometheus",
-		  "uid": "${DS_PROMETHEUS}"
+		  "uid": "Prometheus"
 		},
 		"fieldConfig": {
 		  "defaults": {
@@ -165,7 +165,7 @@
 		  {
 			"datasource": {
 			  "type": "prometheus",
-			  "uid": "${DS_PROMETHEUS}"
+			  "uid": "Prometheus"
 			},
 			"editorMode": "code",
 			"exemplar": false,
@@ -185,7 +185,7 @@
 	  {
 		"datasource": {
 		  "type": "prometheus",
-		  "uid": "${DS_PROMETHEUS}"
+		  "uid": "Prometheus"
 		},
 		"fieldConfig": {
 		  "defaults": {
@@ -269,7 +269,7 @@
 		  {
 			"datasource": {
 			  "type": "prometheus",
-			  "uid": "${DS_PROMETHEUS}"
+			  "uid": "Prometheus"
 			},
 			"editorMode": "builder",
 			"expr": "sum(bytes_per_ip)",
@@ -285,7 +285,7 @@
 	  {
 		"datasource": {
 		  "type": "prometheus",
-		  "uid": "${DS_PROMETHEUS}"
+		  "uid": "Prometheus"
 		},
 		"description": "",
 		"fieldConfig": {
@@ -340,7 +340,7 @@
 		  {
 			"datasource": {
 			  "type": "prometheus",
-			  "uid": "${DS_PROMETHEUS}"
+			  "uid": "Prometheus"
 			},
 			"editorMode": "builder",
 			"expr": "protocol_data_total",
@@ -357,7 +357,7 @@
 	  {
 		"datasource": {
 		  "type": "prometheus",
-		  "uid": "${DS_PROMETHEUS}"
+		  "uid": "Prometheus"
 		},
 		"fieldConfig": {
 		  "defaults": {
@@ -406,7 +406,7 @@
 		  {
 			"datasource": {
 			  "type": "prometheus",
-			  "uid": "${DS_PROMETHEUS}"
+			  "uid": "Prometheus"
 			},
 			"editorMode": "builder",
 			"expr": "rate(process_cpu_seconds_total[15s]) * 100",
